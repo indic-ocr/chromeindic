@@ -1,0 +1,22 @@
+{
+    "name": "Indic OCR",
+    "manifest_version": 2,
+    "version": "0.1",
+    "description": "Highlight Indic text in images and transliterate them ",
+    "options_page": "options.html",
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["contentscript.js"],
+            "css": ["speech-bubble.css"]
+        }
+    ], 
+    "background": {
+        "scripts": [ "bg.js","contextmenu.js"]
+    },
+    "permissions": [
+        "<all_urls>",
+        "contextMenus",
+        "storage"
+    ]
+}
