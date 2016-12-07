@@ -106,21 +106,30 @@ window.onmouseup = function(e){
                     e.target.style.cursor = 'auto';
                     try {
                         var jsonResponse = JSON.parse(response);
+                        console.log("%j", jsonResponse)
 
                         // Handle non-exception-throwing cases:
                         // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
                         // but... JSON.parse(null) returns null, and typeof null === "object", 
                         // so we must check for that, too. Thankfully, null is falsey, so this suffices:
-                        if (jsonResponse && typeof jsonResponse === "object") {
+                        if (jsonResponse && jsonResponse.recognizedText) {
 
-                            bubbleDiv.style.display="block"
+                            if(!bubbleDiv){
+                                alert("Document could not load completely. Try reloading the page!!");
+                                return;
+                            }
+                            bubbleDiv.style.zIndex= 1000;
+                            bubbleDiv.style.display="block";
                             bubbleDiv.style.position = "absolute";
                             bubbleDiv.style.top = e.pageY+'px';
                             bubbleDiv.style.left = e.pageX+'px';
-                            bubbleDiv.innerHTML = '<p class="triangle-isosceles left">Recognized text: ' + jsonResponse.recognizedText + '<br><br>English Tranliteration: ' + jsonResponse.englishTransliteration + '<br><br>Target transliteration: ' + jsonResponse.tranliteratedTo +'</p>';
+                            bubbleDiv.innerHTML = '<p class="triangle-isosceles left">Recognized text: ' + jsonResponse.recognizedText + '<br><br>English transliteration: ' + jsonResponse.englishTransliteration + '<br><br>Target transliteration: ' + jsonResponse.tranliteratedTo +'</p>';
+                        }
+                        else{
+                            console.log("Not a JSON");
                         }
                     }
-                    catch (e) { }
+                    catch (e) { console.log("---Not a JSON " + e.message);}
                     console.log("GOT STUFF", response)
                 });
 
@@ -155,6 +164,8 @@ window.onload = function(){
             bubbleDiv.style.display="none";
         }
     };
+    
+    console.log("Document ready");
 
 
 }

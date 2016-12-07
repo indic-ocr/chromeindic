@@ -2,7 +2,8 @@
     "name": "Indic OCR",
     "manifest_version": 2,
     "version": "0.1",
-    "description": "Highlight Indic text in images and transliterate them ",
+    "description": "Highlight Indic/English text in images and transliterate them ",
+    "homepage_url":"http://indic-ocr.github.io",
     "options_page": "options.html",
     "content_scripts": [
         {
