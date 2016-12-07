@@ -69,6 +69,12 @@ window.onmousedown = function(e){
 
 
 }
+window.onmousemove = function(e)
+{
+    if(e.target.tagName.toLowerCase() == "img"){
+        e.target.style.cursor = 'crosshair';
+    }
+}
 
 
 
@@ -77,7 +83,7 @@ window.onmouseup = function(e){
     mouse_down = false;
     var elpos = findPos(e.target);
 
-   
+
     if(elpos)
     {
         var X = e.pageX - elpos[0],
@@ -107,10 +113,11 @@ window.onmouseup = function(e){
                         // so we must check for that, too. Thankfully, null is falsey, so this suffices:
                         if (jsonResponse && typeof jsonResponse === "object") {
 
+                            bubbleDiv.style.display="block"
                             bubbleDiv.style.position = "absolute";
-                            bubbleDiv.style.top = startPageY+'px';
-                            bubbleDiv.style.left = startPageX+'px';
-                            bubbleDiv.innerHTML = '<p class="triangle-isosceles">' + jsonResponse.recognizedText + '<br>' + jsonResponse.englishTransliteration + '<br>' + jsonResponse.tranliteratedTo +'</p>';
+                            bubbleDiv.style.top = e.pageY+'px';
+                            bubbleDiv.style.left = e.pageX+'px';
+                            bubbleDiv.innerHTML = '<p class="triangle-isosceles left">Recognized text: ' + jsonResponse.recognizedText + '<br><br>English Tranliteration: ' + jsonResponse.englishTransliteration + '<br><br>Target transliteration: ' + jsonResponse.tranliteratedTo +'</p>';
                         }
                     }
                     catch (e) { }
@@ -135,6 +142,19 @@ window.onload = function(){
     bubbleDiv.setAttribute("id","img_container");
 
     document.body.appendChild(bubbleDiv);
+
+    document.onkeydown = function(evt) {
+        evt = evt || window.event;
+        var isEscape = false;
+        if ("key" in evt) {
+            isEscape = (evt.key == "Escape" || evt.key == "Esc");
+        } else {
+            isEscape = (evt.keyCode == 27);
+        }
+        if (isEscape) {
+            bubbleDiv.style.display="none";
+        }
+    };
 
 
 }

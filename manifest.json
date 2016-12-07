@@ -11,6 +11,16 @@
             "css": ["speech-bubble.css"]
         }
     ], 
+    "icons":{
+        "32" :"indicocr32.png",
+        "64" :"indicocr64.png",
+        "128" :"indicocr128.png"
+
+
+    },
+    "browser_action":{
+        "default_icon": "indicocr32.png"
+    },
     "background": {
         "scripts": [ "bg.js","contextmenu.js"]
     },
